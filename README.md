@@ -9,8 +9,12 @@ Application to chat in real time
 - [x] Display client logs
 - [x] Display messages with date
 - [ ] Create chat commands
-  - [x] /history - Display previous messages
-  - [ ] /rol - Show actual user rank
+  - [x] /history - Display previous messages - CHECK
+  - [ ] /role - Show actual user rank
+    - user - <em>default</em>
+    - vip - <em>granted by admin / mod</em>
+    - mod - <em>granted by admin</em>
+    - <a href="mailto:gabrielcrackpro2001@gmail.com">suggest a rank</a>
   - [ ] /set <em>attr </em> - Modify rol system
   - [ ] /w <em>user</em> - Allow user to send private messages
   - [ ] /config - Customize yout profile
