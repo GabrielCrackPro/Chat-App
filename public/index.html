@@ -17,12 +17,15 @@
       #messages > li:nth-child(odd) { background: #efefef; }
 
       #reply-section{position: absolute; bottom: 50px; margin-left:  5px;}
+      #settings{position:absolute;height:300px; width: 400px;left: 70%;top: 65px;}
+      
     </style>
   </head>
   <body>
     <nav class="navbar navbar-dark bg-dark mb-2">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html"><i class="fas fa-comment-dots fs-3"></i> Chat App</a>
+        <button class="settings btn btn-link link-light text-decoration-none"><i class="fas fa-cog fs-3"></i></button>
       </div>
     </nav>
     <ul id="messages"></ul>
@@ -39,8 +42,8 @@
       var messages = document.getElementById('messages');
       var form = document.getElementById('form');
       var input = document.getElementById('input');
-
       var replyText = document.querySelector('#reply-section')
+      var settingsButton = document.querySelector('.settings')
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -49,6 +52,31 @@
           input.value = '';
         }
       });
+
+      const getRandomNumber = (min,max) => {
+        return  Number(Math.floor(Math.random())  * (max - min) + min)
+      }
+
+      settingsButton.addEventListener('click', ()=>{
+        const settingsMenu = document.createElement('div')
+        if(!settingsMenu.classList.contains('shown')){
+          settingsMenu.classList.add('bg-dark','shown')
+        settingsMenu.id = "settings"
+        settingsMenu.innerHTML = `
+        <p>Settings</p>
+        <form>
+          <label for="user">Username</label>
+          <input type="text" value="user" name="user" class="form-control-sm mb-2" placeholder="Username">
+          <br>
+          <label for="user-id">User ID</label>
+          <input type="text" value="00${getRandomNumber(20,89)}" name="user-id" class="form-control-sm" placeholder="UserID">
+          </form>
+        `
+        settingsButton.appendChild(settingsMenu)
+        }else{
+          settingsMenu.style.display = "none"
+        }
+      })
 
 
       socket.on('chat message', function(msg) {
