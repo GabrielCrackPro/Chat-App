@@ -8,6 +8,7 @@ Application to chat in real time
 - [x] Display server logs
 - [x] Display client logs
 - [x] Display messages with date
+- [x] Create settings menu
 - [ ] Create chat commands
   - [x] /history - Display previous messages - CHECK
   - [ ] /role - Show actual user rank
