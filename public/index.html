@@ -57,6 +57,9 @@
       const getRandomNumber = (min,max) => {
         return  Number(Math.floor(Math.random())  * (max - min) + min)
       }
+      const isAnchor = (msg) => {
+        return /^\<a.*\>.*\<\/a\>/i.test(msg);
+      }
 
       settingsButton.addEventListener('click', ()=>{
         const settingsMenu = document.createElement('div')

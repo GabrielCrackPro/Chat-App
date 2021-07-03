@@ -30,6 +30,11 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     messageHistory.push({ msg, messageCount }); //Save messages
     messageCount++;
+    if (msg === "/link") {
+      for (let i = 0; i <= messageHistory.length; i++) {
+        getLink(messageHistory[i]);
+      }
+    }
     if (msg === "/h" || msg === "/history") {
       io.emit("chat message", "---Previous Messages---");
       io.emit(
@@ -58,6 +63,7 @@ const getTime = () => {
 
   return `${hours}:${minutes}:${seconds}`;
 };
+
 let messageHistory = [];
 const getMessageHistory = () => {
   for (let i = 0; i <= messageHistory.length; i++) {
@@ -67,6 +73,10 @@ const getMessageHistory = () => {
     );
   }
   messageHistory = [];
+};
+const getLink = (msg) => {
+  const link = `<a href="${msg}">${msg}</a>`;
+  io.emit("chat message", link);
 };
 http.listen(port, () => {
   console.log(`🚀 Chat running at http://localhost:${port}/`);
