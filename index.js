@@ -35,12 +35,24 @@ io.on("connection", (socket) => {
         getLink(messageHistory[i]);
       }
     }
-    if (msg === "/h" || msg === "/history") {
+    if (msg === "/history") {
       io.emit("chat message", "---Previous Messages---");
       io.emit(
         "chat message",
         ` [Chat Bot 🤖]: ${getMessageHistory()} at ${getTime()}`
       ); //See previous messages
+      if (msg === "/help") {
+        io.emit("chat message", "---Available Commands----");
+        io.emit(
+          "chat message",
+          `[Chat Bot 🤖] /history - Show previous messages`
+        );
+        io.emit("chat message", "/link -[Chat Bot 🤖] Show previous links");
+      }
+      if (msg === "/clear") {
+        messageHistory = [];
+        location.reload();
+      }
     } else {
       console.log("message:", msg);
       io.emit(
