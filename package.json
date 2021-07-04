@@ -21,6 +21,7 @@
   "homepage": "https://github.com/GabrielCrackPro/chat-app#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "prompt": "^1.1.0",
     "socket.io": "^4.1.2"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@
 
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
+      #messages > li:nth-child(odd) { background: #212529; color: #ffff; }
 
       #reply-section{position: absolute; bottom: 50px; margin-left:  5px;}
       #settings{position:absolute;height:300px; width: 400px;left: 70%;top: 65px;}
@@ -53,14 +53,9 @@
           input.value = '';
         }
       });
-
       const getRandomNumber = (min,max) => {
         return  Number(Math.floor(Math.random())  * (max - min) + min)
       }
-      const isAnchor = (msg) => {
-        return /^\<a.*\>.*\<\/a\>/i.test(msg);
-      }
-
       settingsButton.addEventListener('click', ()=>{
         const settingsMenu = document.createElement('div')
         if(!settingsMenu.classList.contains('shown')){
@@ -73,7 +68,7 @@
           <input type="text" value="user" name="user" class="form-control-sm mb-2" placeholder="Username">
           <br>
           <label for="user-id">User ID</label>
-          <input type="text" value="00${getRandomNumber(20,89)}" name="user-id" class="form-control-sm" placeholder="UserID">
+          <input type="text" value="${socket.id}" name="user-id" class="form-control-sm" placeholder="UserID">
           </form>
         `
         settingsButton.appendChild(settingsMenu)
@@ -81,7 +76,9 @@
           settingsMenu.style.display = "none"
         }
       })
-
+      socket.on("connection", ()=>{
+        prompt("What's your name?")
+      })
 
       socket.on('chat message', function(msg) {
         const replyToMessage = (msg) => {

@@ -8,22 +8,28 @@ app.get("/", (req, res) => {
 });
 
 //Socket connection managment
-let userTotal = 0;
 let messageCount = 0;
+let users = [];
 io.on("connection", (socket) => {
-  userTotal++;
-  console.log(`[Chat Bot 🤖]: user_${userTotal} connected at ${getTime()}`); //When someone loads the app
-  io.emit(
+  users.push({
+    connectedOn: getTime(),
+    id: socket.id,
+  });
+  io.emit("chat message", "Welcome to chat room");
+  io.emit("chat message", `Your ID is #${socket.id}`);
+  console.log(`[Chat Bot 🤖]: user connected at ${getTime()}`); //When someone loads the app
+  socket.broadcast.emit(
     "chat message",
-    `[Chat Bot 🤖]: user_${userTotal} has entered the chat at ${getTime()}`
+    `[Chat Bot 🤖]: user ${socket.id} has entered the chat at ${getTime()}`
   ); //When someone enters the chat
   socket.on("disconnect", () => {
-    console.log(`[Chat Bot 🤖]: user disconnected at ${getTime()}`); //When someone closes the app
+    console.log(
+      `[Chat Bot 🤖]: user ${socket.id} disconnected at ${getTime()}`
+    ); //When someone closes the app
     io.emit(
       "chat message",
-      `[Chat Bot 🤖]: user has left the chat at ${getTime()}`
+      `[Chat Bot 🤖]: user ${socket.id} has left the chat at ${getTime()}`
     );
-    userTotal--;
     //When someone lefts the chat
   });
 
