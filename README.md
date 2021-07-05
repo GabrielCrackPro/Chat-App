@@ -4,6 +4,7 @@ Application to chat in real time
 
 ## TODO
 
+- [ ] ⚠️ **_Refactor server_ ** ⚠️
 - [x] Implement <a href="https://socket.io/" target="blank">socket.io</a>
 - [x] Display server logs
 - [x] Display client logs
