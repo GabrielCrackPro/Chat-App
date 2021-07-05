@@ -7,7 +7,7 @@ Application to chat in real time
 - [x] Implement <a href="https://socket.io/" target="blank">socket.io</a>
 - [x] Display server logs
 - [x] Display client logs
-- [x] Display messages with date
+- [x] Display messages with date - Time Stampts
 - [x] Create settings menu
 - [ ] Create chat commands
   - [x] /history - Display previous messages - CHECK
