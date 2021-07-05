@@ -25,7 +25,7 @@ Application to chat in real time
 
 ## USER PROFILE
 
-User profile design
+User profile design <a href="https://drive.google.com/file/d/1qlQVJDxCXKi5gRvpQhtgV-EjQ6uvDNLS/view?usp=sharing" target="blank">here</a>
 
 - [ ] Username - alphanumeric
 - [ ] Socket.io ID - provided automatically by socket.io
