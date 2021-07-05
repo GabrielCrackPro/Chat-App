@@ -14,9 +14,14 @@ io.on("connection", (socket) => {
   users.push({
     connectedOn: getTime(),
     id: socket.id,
-  });
+  }); // Save user data
   io.emit("chat message", "Welcome to chat room");
-  io.emit("chat message", `Your ID is #${socket.id}`);
+  io.emit(
+    "chat message",
+    `[Chat Bot 🤖]Your ID is #${
+      socket.id
+    } connection established at ${getTime()}`
+  );
   console.log(`[Chat Bot 🤖]: user connected at ${getTime()}`); //When someone loads the app
   socket.broadcast.emit(
     "chat message",
@@ -30,12 +35,14 @@ io.on("connection", (socket) => {
       "chat message",
       `[Chat Bot 🤖]: user ${socket.id} has left the chat at ${getTime()}`
     );
+    users.pop(); // Delete user data
     //When someone lefts the chat
   });
 
   socket.on("chat message", (msg) => {
     messageHistory.push({ msg, messageCount }); //Save messages
     messageCount++;
+    // Chat comands
     if (msg === "/link") {
       for (let i = 0; i <= messageHistory.length; i++) {
         getLink(messageHistory[i]);
@@ -47,18 +54,13 @@ io.on("connection", (socket) => {
         "chat message",
         ` [Chat Bot 🤖]: ${getMessageHistory()} at ${getTime()}`
       ); //See previous messages
-      if (msg === "/help") {
-        io.emit("chat message", "---Available Commands----");
-        io.emit(
-          "chat message",
-          `[Chat Bot 🤖] /history - Show previous messages`
-        );
-        io.emit("chat message", "/link -[Chat Bot 🤖] Show previous links");
-      }
-      if (msg === "/clear") {
-        messageHistory = [];
-        location.reload();
-      }
+    }
+    if (msg === "/help") {
+      io.emit("chat message", "--- Chat Commands ---");
+      io.emit("chat message", "/history - See previous messages");
+      io.emit("chat message", "/link - Check messages that contain a link");
+      io.emit("chat message", "/help - See this list");
+      io.emit("chat message", "More commands will be added in the future");
     } else {
       console.log("message:", msg);
       io.emit(
