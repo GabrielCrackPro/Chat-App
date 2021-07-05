@@ -13,15 +13,32 @@ Application to chat in real time
 - [ ] Create chat commands
   - [x] /history - Display previous messages - CHECK
   - [ ] /role - Show actual user rank
-    - user - <em>default</em>
-    - vip - <em>granted by admin / mod</em>
-    - mod - <em>granted by admin</em>
-    - <a href="mailto:gabrielcrackpro2001@gmail.com">suggest a rank</a>
-  - [ ] /set <em>attr </em> - Modify rol system
   - [ ] /w <em>user</em> - Allow user to send private messages
-  - [ ] /config - Customize yout profile
-  - [ ] /help - Show all available commands
+  - [ ] /profile - View and customize your profile
+    - [ ] Design and implement customization system
+  - [x] /help - Show all available commands
   - [ ] /help <em>command</em> - Show the use of the specified command
-- [ ] Create customization system
 - [ ] Deploy frontend 🌏
 - [ ] Deploy backend 🌏
+
+## NICE TO HAVE - OPTIONAL
+
+### Time-based ranking system
+
+Available ranges - Accessible via /role comand
+
+- user - <em>default</em>
+- VIP - <em>granted by admin / mod</em>
+- Mod - <em>granted by admin</em>
+- Admin - <em>chat / room creator only</em>
+  <a href="mailto:gabrielcrackpro2001@gmail.com">Suggest a rank</a>
+
+### Private message system - whispers
+
+Send private messages to any user in the chat room via /w <em>user</em> comand
+<br>
+**_⚠️ Implement first ⚠️_**
+
+- [ ] Follow / Friendship system
+- [ ] Individual user profile page - via /profile command
+- [ ] Inbox system
