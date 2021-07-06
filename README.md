@@ -59,3 +59,7 @@ Send private messages to any user in the chat room via /w <em>user</em> comand
 - [ ] Follow / Friendship system
 - [ ] Individual user profile page - via /profile command
 - [ ] Inbox system
+
+## CHANGELOG
+
+- 🔧 [**_ 06/06/2021 _**] Comand selection refactored
