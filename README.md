@@ -1,6 +1,7 @@
 # Chat App
 
-Application to chat in real time
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/GabrielCrackPro/chat-app/pulls)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/GabrielCrackPro/chat-app/master/LICENSE)
 
 ## TODO
 
