@@ -11,16 +11,17 @@ app.get("/", (req, res) => {
 let messageCount = 0;
 let users = [];
 io.on("connection", (socket) => {
+  const getUserID = () => {
+    return `#${socket.id}`;
+  };
   users.push({
     connectedOn: getTime(),
     id: socket.id,
   }); // Save user data
-  io.emit("chat message", "Welcome to chat room");
+  io.emit("chat message", `Welcome to chat room, ${getOnlineUsers(users)}`);
   io.emit(
     "chat message",
-    `[Chat Bot 🤖]Your ID is #${
-      socket.id
-    } connection established at ${getTime()}`
+    `[Chat Bot 🤖]Your ID is ${getUserID()},connection established at ${getTime()}`
   );
   console.log(`[Chat Bot 🤖]: user connected at ${getTime()}`); //When someone loads the app
   socket.broadcast.emit(
@@ -33,7 +34,9 @@ io.on("connection", (socket) => {
     ); //When someone closes the app
     io.emit(
       "chat message",
-      `[Chat Bot 🤖]: user ${socket.id} has left the chat at ${getTime()}`
+      `[Chat Bot 🤖]: user ${socket.id} has left the chat at ${
+        (getTime(), getOnlineUsers(users))
+      }`
     );
     users.pop(); // Delete user data
     //When someone lefts the chat
@@ -42,31 +45,37 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     messageHistory.push({ msg, messageCount }); //Save messages
     messageCount++;
-    // Chat comands
-    if (msg === "/link") {
-      for (let i = 0; i <= messageHistory.length; i++) {
-        getLink(messageHistory[i]);
-      }
-    }
-    if (msg === "/history") {
-      io.emit("chat message", "---Previous Messages---");
-      io.emit(
-        "chat message",
-        ` [Chat Bot 🤖]: ${getMessageHistory()} at ${getTime()}`
-      ); //See previous messages
-    }
-    if (msg === "/help") {
-      io.emit("chat message", "--- Chat Commands ---");
-      io.emit("chat message", "/history - See previous messages");
-      io.emit("chat message", "/link - Check messages that contain a link");
-      io.emit("chat message", "/help - See this list");
-      io.emit("chat message", "More commands will be added in the future");
-    } else {
-      console.log("message:", msg);
-      io.emit(
-        "chat message",
-        `${messageCount} - [👨🏻‍💻] user says: ${msg} at ${getTime()}`
-      ); //Show all messages
+    switch (msg) {
+      case "/link": //Show chat links
+        for (let i = 0; i <= messageHistory.length; i++) {
+          getLink(messageHistory[i]);
+        }
+        break;
+      case "/history": //Show message history
+        io.emit("chat message", "--- Previous Messages ---");
+        io.emit(
+          "chat message",
+          `[Chat Bot 🤖]: ${getMessageHistory()} at ${getTime()}`
+        );
+        break;
+      case "/users": //Show online users
+        getOnlineUsers(users);
+        break;
+      case "/help": //Show all commands
+        io.emit("chat message", "--- Chat Commands ---");
+        io.emit("chat message", "/history - See previous messages");
+        io.emit("chat message", "/link - Check messages that contain a link");
+        io.emit("chat message", "/users - Show online users");
+        io.emit("chat message", "/help - See this list");
+        io.emit("chat message", "More commands will be added in the future");
+        break;
+      default:
+        //Show messages
+        console.log(`user ${getUserID()} says ${msg} at ${getTime()}`);
+        io.emit(
+          "chat message",
+          `${messageCount} - [👨🏻‍💻]user ${getUserID()} says: ${msg} at ${getTime()}`
+        );
     }
   });
 });
@@ -93,6 +102,9 @@ const getMessageHistory = () => {
     );
   }
   messageHistory = [];
+};
+const getOnlineUsers = (users) => {
+  return `users online: ${users.length}`;
 };
 const getLink = (msg) => {
   const link = `<a href="${msg}">${msg}</a>`;
